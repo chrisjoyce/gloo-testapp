@@ -4,7 +4,7 @@
 		.factory('BookService', BookService);
 
 
-	GlooBookService.$inject = ['$http'];
+	BookService.$inject = ['$http'];
 
 
 	function BookService($http) {
@@ -29,7 +29,16 @@
 		}
 
 		function getBook(title) {
+			console.log("TODO getBook")
+		}
 
+		function deleteBook(id) {
+			console.log("TODO delete");
+
+		}
+
+		function updateBook(id) {
+			console.log("TODO update");
 		}
 	}
 

@@ -3,11 +3,15 @@
 <head>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+
+    <base href="/">
 </head>
   <body ng-app="gloo-app">
 
 
-  <div ng-view></div>
+  <div layout="column">
+    <div ng-view></div>
+  </div>
 
   <script src="/bower_components/angular/angular.js"></script>
   <script src="/bower_components/angular-aria/angular-aria.js"></script>
@@ -18,11 +22,14 @@
 
   <script src="app/gloo-app.js" charset="utf-8"></script>
 
+  <script src="app/dashboard/dashboard.controller.js"></script>
+
+  <script src="app/books/book.module.js"></script>
   <script src="app/books/book.controller.js"></script>
   <script src="app/books/book.service.js"></script>
 
-  <script type="app/websites/website.controller.js"></script>
-  <script type="app/websites/website.service.js"></script>
-
+  <!--<script src="app/websites/website.controller.js"></script>
+  <script src="app/websites/website.service.js"></script>
+-->
 </body>
 </html>

@@ -1,4 +1,4 @@
-<div ng-controller="BookController as vm">
+<div>
 	<md-toolbar layout="row">
 	  <div class="md-toolbar-tools">
 	    <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
@@ -6,9 +6,24 @@
 	    </md-button>
 	    <h1>{{vm.title}}</h1>
 
-	  	<md-button>
+	  	<md-button href="books/new" ng-click="">Add
+	  	</md-button>
+
 	  	</md-button>
 	  </div>
 
   </md-toolbar>
+
+
+  <md-content>
+		<md-list>
+  		<md-subheader class="md-no-sticky">Book List</md-subheader>
+  		<md-list-item ng-repeat="book in vm.books" ng-click="vm.navigateTo(book.title)">
+    		<p> <md-button ng-href="books/{{book.title}}">{{ book.title }}</md-button> </p>
+    		<!-- <md-checkbox class="md-secondary" ng-model="topping.wanted"></md-checkbox> -->
+    		<md-button ng-click="vm.deleteBook($index)">D</md-button>
+  		</md-list-item>
+
+
+  </md-content>
 </div>

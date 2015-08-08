@@ -8,9 +8,10 @@
   	'ngRoute', 'ngMaterial',
 
   	// app modules
-  	'gloo-app.books'//, 'gloo-app.website', 'gloo-app.user',
+  	'gloo-app.books',// 'gloo-app.website', 'gloo-app.user',
 
   	// thirdparty
+    'ngMdIcons'
   	])
   	.config(routeConfiguration);
 
@@ -19,7 +20,26 @@
   function routeConfiguration($routeProvider, $locationProvider) {
   	$routeProvider
   		.when('/', { templateUrl: 'app/dashboard/dashboard.html' })
-  		.when('/books', {templateUrl: 'app/books/books.html'} )
+      .when('/books/new', {
+        templateUrl: 'app/books/book.form.html',
+        controller: 'BookNewController',
+        controllerAs: 'vm'
+      })
+      .when('/books/:title', {
+        templateUrl: 'app/books/book.form.html',
+        controller: 'BookUpdateController',
+        controllerAs: 'vm'
+      })
+      .when('/books', {
+        templateUrl: 'app/books/books.html',
+        controller: 'BookController',
+        controllerAs: 'vm'
+      })
+  		// .when('/books/new', {
+  		// 	templateUrl: 'app/books/book.form.html',
+  		// 	controler: 'BookNewController',
+  		// 	controllerAs: 'vm'
+  		// })
   		.when('/websites', {})
   		.otherwise({redirectTo: '/'});
 

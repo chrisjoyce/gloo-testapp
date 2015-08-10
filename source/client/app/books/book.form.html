@@ -1,41 +1,97 @@
 <div>
 
-  <md-toolbar layout="row">
+<!--   <md-toolbar layout="row">
       <md-button class="menu" hide-gt-sm><i class="fa fa-bars"></i></md-button>
       <p>{{vm.book.title || 'New Book'}}<span ng-if="vm.book.author !== ''"> by  {{vm.book.author}}</span></p>
       <md-button class="md-icon-button" aria-label="Home">
         <ng-md-icon class="md-flex" icon="home"></ng-md-icon>
       </md-button>
   </md-toolbar>
-
+ -->
 <!--       <md-button class="md-icon-button" aria-label="Home">
         <ng-md-icon class="md-flex" icon="home" size="32"></ng-md-icon>
       </md-button>
  -->
 
   <md-content layout-padding="">
-      <form name="vm.bookForm" validate>
-        <div layout="" layout-sm="column">
-          <md-input-container style="width:70%">
+
+    <div ng-switch on="vm.book.type">
+      <div ng-switch-when="book">
+        <form name="vm.bookForm" validate>
+          <div layout="" layout-sm="column">
+            <md-input-container style="width:70%">
               <label>Book Name</label>
               <input ng-model="vm.book.title" ng-value="vm.book.title">
             </md-input-container>
 
-          <md-input-container flex="">
-            <label>ISBN</label>
-            <input ng-model="vm.book.ISBN">
-          </md-input-container>
+            <md-input-container flex="">
+              <label>ISBN</label>
+              <input ng-model="vm.book.ISBN" ng-disabled="!vm.newBook">
+            </md-input-container>
+          </div>
+
+          <div layout="" layout-sm="column">
+            <md-input-container flex="">
+              <label>Author</label>
+              <input ng-model="vm.book.author">
+            </md-input-container>
+          </div>
+
+          <md-select ng-if="vm.newBook" name="resourceType" placeholder="Resource Type" ng-model="vm.book.type">
+            <md-option ng-repeat="type in vm.types" value="{{type}}">{{type}}</md-option>
+          </md-select>
+
+
+        </form>
+
+        <div ng-if="!vm.newBook">
+          <md-button class="md-raised" ng-click="vm.deleteBook()">Delete</md-button>
         </div>
 
-        <div layout="" layout-sm="column">
-          <md-input-container flex="">
-            <label>Author</label>
-            <input ng-model="vm.book.author">
-          </md-input-container>
-        </div>
+      </div>
+      <div ng-switch-when="web">
+        <form name="vm.webForm" validate>
+          <div layout="" layout-sm="column">
+            <md-input-container style="width:70%">
+              <label>Website Name</label>
+              <input ng-model="vm.book.title" ng-value="vm.book.title">
+            </md-input-container>
 
-      </form>
-      <button ng-if="vm.newBook" ng-click="vm.addBook()">Save</button>
+            <md-input-container flex="">
+              <label>URL</label>
+              <input ng-model="vm.book.url">
+            </md-input-container>
+
+            <md-select ng-if="vm.newBook" name="resourceType" placeholder="Resource Type" ng-model="vm.book.type">
+              <md-option ng-repeat="type in vm.types" value="{{type}}">{{type}}</md-option>
+            </md-select>
+          </div>
+
+          <div layout="row" layout-align="end center">
+
+            <div ng-if="!vm.newBook">
+              <md-button class="md-raised" ng-click="vm.deleteBook()">Delete</md-button>
+            </div>
+
+            <md-button class="md-raised" ng-click="vm.navigateTo(vm.book.url)">Open Website</md-button>
+          </div>
+
+        </form>
+      </div>
+      <div ng-switch-default>
+        <div ng-if="vm.newBook">
+          <md-select name="resourceType" placeholder="Resource Type" ng-model="vm.book.type">
+            <md-option ng-repeat="type in vm.types" value="{{type}}">{{type}}</md-option>
+          </md-select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--       <label for="resourceType">Resource Type</label>
+ -->
+<!--       <button ng-if="vm.newBook" ng-click="vm.addBook()">Save</button>
       <button ng-if="!vm.newBook" ng-click="vm.updateBook()">Update</button>
-  </md-content>
+ -->
+ </md-content>
 </div>

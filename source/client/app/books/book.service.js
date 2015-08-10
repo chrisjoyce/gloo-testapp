@@ -4,14 +4,16 @@
 		.factory('BookService', BookService);
 
 
-	BookService.$inject = ['$http', '$q'];
+	BookService.$inject = ['$http', '$q', 'localStorageService'];
 
 
-	function BookService($http, $q) {
+	function BookService($http, $q, localStorageService) {
+		var resourcesInStore = localStorageService.get('resources');
 
-		var books = [
-				{title: 'Design Patterns', author: 'Many People', ISBN: '123AI-34343-BN33'},
-				{title: 'Javascript Cooking', author: 'Douglas Crockford', ISBN: '123AI-34343-BN34'}
+		var books = resourcesInStore || [
+				{title: 'Design Patterns', author: 'Many People', ISBN: '123AI-34343-BN33', type: 'book'},
+				{title: 'Javascript Cookbook', author: 'Douglas Crockford', ISBN: '123AI-34343-BN34', type: 'book'},
+				{title: 'Stack Overflow', url: 'http://stackoverflow.com', type: 'web'}
 	    ];
 
 		var service = {
@@ -26,44 +28,48 @@
 		return service;
 
 
-		// service api, using promises
+		// get all the books
 		function getBooks() {
-			return books;
+			return $q.when(books);
 		}
 
+		// get a resource by its title
 		function getBook(title) {
 			var book = books.filter(function(book) {
 				return book.title === title;
 			});
 
-			// so I know this is a bit hacky, but I'm assuming unique titles atm
 			return $q.when(book[0]);
 		}
 
-		function deleteBook(id) {
+		// delete a book by index, this would really be an id thats unique to all resources
+		function deleteBook(idx) {
 			books.splice(idx, 1);
 			return $q.when(books);
+		}
 
 
+		function updateBook(book) {
 			for (var idx = 0; idx < books.length; idx++) {
-				var book = books[idx];
-				if (book.title === id) {
-					debugger;
-					books.splice(idx, 1);
+				if (books[idx].title === book.title) {
+					books[idx] = book;
 					break;
 				}
 			}
 
-			return $q.when(books);
-		}
+			// update local storage with the new book info
+			localStorageService.set('resources', vm.books);
 
-		function updateBook(id) {
-			console.log("TODO update");
+			return $q.when(books);
 		}
 
 		function createBook(book) {
 			// assume valid stuff for now
 			books.push(book);
+
+			// update local storage
+			localStorageService.set('resources', books);
+
 			// simulate a network call if i don't get to writing a server
 			return $q.when(books);
 			// or

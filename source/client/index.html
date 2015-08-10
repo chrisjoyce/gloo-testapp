@@ -6,13 +6,56 @@
     <link rel="stylesheet" type="text/css" href="/bower_components/angular-material-icons/angular-material-icons.css">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/app.css">
     <base href="/">
 </head>
-  <body ng-app="gloo-app">
+  <body ng-app="gloo-app" layout="column" data-ng-controller="BookController as vm">
 
+  <md-toolbar layout="row">
+    <md-button class="menu" hide-gt-sm ng-click="vm.toggleBookList()"><i class="fa fa-bars"></i></md-button>
+    <h1 hide-sm class="left">Library</h1>
+    <h1 hide-gt-sm>{{vm.book.title || 'Library'}}</h1>
+    <h1 hide-sm ng-if="vm.book !== null">{{vm.book.title}} by {{vm.book.author}}</h1>
+    <md-button class="add_resource" ng-click="vm.addBook()">
+      <ng-md-icon icon="add" size="24"></ng-md-icon>
+    </md-button>
+  </md-toolbar>
 
-  <div layout="column">
-    <div ng-view></div>
+  <div layout="row" flex>
+      <md-sidenav flex="30%" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left" md-scroll>
+        <md-list>
+          <md-list-item class="md-3-line" ng-repeat="book in vm.books">
+            <md-button ng-click="vm.selectBook(book, $index)" ng-class="{'selected' : book === vm.book }">
+
+              <div ng-if="book.type === 'web'" layout="row">
+                  <ng-md-icon icon="web" size="32"></ng-md-icon>
+                  <div class="md-list-item-text">
+                    <h3>{{ book.title }}</h3>
+                    <h4>{{ book.url }}</h4>
+                    <p> {{book.desc || 'A great learning resource'}}</p>
+                  </div>
+              </div>
+
+              <div ng-if="book.type === 'book'" layout="row" layout-align="space-around center">
+                <ng-md-icon icon="book" size="32"></ng-md-icon>
+                <div class="md-list-item-text">
+                  <h3>{{ book.title }}</h3>
+                  <h4>{{ book.author }}</h4>
+                  <p>ISBN: {{ book.ISBN }}</p>
+                </div>
+              </div>
+            </md-button>
+          </md-list-item>
+        </md-list>
+      </md-sidenav>
+      <md-content flex="100%">
+        <div ng-if="vm.book !== null" ng-include="'app/books/book.form.html'"></div>
+        <div ng-if="vm.book === null">
+          <p>There are {{vm.books.length}} learning resources in your library.</p>
+
+        </div>
+        <footer ><md-button class="md-raised" ng-if="vm.newBook" ng-click="vm.saveBook()">Save</md-toolbar></footer>
+      </md-content>
   </div>
 
   <script src="/bower_components/angular/angular.js"></script>
@@ -20,9 +63,8 @@
   <script src="/bower_components/angular-animate/angular-animate.js"></script>
   <script src="/bower_components/angular-material/angular-material.js"></script>
   <script src="/bower_components/angular-material-icons/angular-material-icons.js"></script>
-
   <script src="/bower_components/angular-route/angular-route.js"></script>
-
+  <script src="/bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
   <script src="app/gloo-app.js" charset="utf-8"></script>
 
   <script src="app/dashboard/dashboard.controller.js"></script>

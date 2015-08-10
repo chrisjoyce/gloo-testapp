@@ -1,88 +1,75 @@
 <div>
-
-<!--   <md-toolbar layout="row">
-      <md-button class="menu" hide-gt-sm><i class="fa fa-bars"></i></md-button>
-      <p>{{vm.book.title || 'New Book'}}<span ng-if="vm.book.author !== ''"> by  {{vm.book.author}}</span></p>
-      <md-button class="md-icon-button" aria-label="Home">
-        <ng-md-icon class="md-flex" icon="home"></ng-md-icon>
-      </md-button>
-  </md-toolbar>
- -->
-<!--       <md-button class="md-icon-button" aria-label="Home">
-        <ng-md-icon class="md-flex" icon="home" size="32"></ng-md-icon>
-      </md-button>
- -->
-
   <md-content layout-padding="">
 
-    <div ng-switch on="vm.book.type">
+    <div ng-switch on="vm.resource.type">
       <div ng-switch-when="book">
-        <form name="vm.bookForm" validate>
+        <form name="vm.resourceForm" validate>
           <div layout="" layout-sm="column">
             <md-input-container style="width:70%">
               <label>Book Name</label>
-              <input ng-model="vm.book.title" ng-value="vm.book.title">
+              <input ng-model="vm.resource.title" ng-value="vm.resource.title" required>
             </md-input-container>
 
             <md-input-container flex="">
               <label>ISBN</label>
-              <input ng-model="vm.book.ISBN" ng-disabled="!vm.newBook">
+              <input ng-model="vm.resource.ISBN" ng-disabled="!vm.newResource" required>
             </md-input-container>
           </div>
 
           <div layout="" layout-sm="column">
             <md-input-container flex="">
               <label>Author</label>
-              <input ng-model="vm.book.author">
+              <input ng-model="vm.resource.author">
             </md-input-container>
           </div>
 
-          <md-select ng-if="vm.newBook" name="resourceType" placeholder="Resource Type" ng-model="vm.book.type">
+          <md-select ng-if="vm.newResource" placeholder="Resource Type" ng-model="vm.resource.type">
             <md-option ng-repeat="type in vm.types" value="{{type}}">{{type}}</md-option>
           </md-select>
 
 
         </form>
 
-        <div ng-if="!vm.newBook">
-          <md-button class="md-raised" ng-click="vm.deleteBook()">Delete</md-button>
+        <div ng-if="!vm.newResource">
+          <md-button class="md-raised" ng-click="vm.deleteResource()">Delete</md-button>
         </div>
 
       </div>
       <div ng-switch-when="web">
-        <form name="vm.webForm" validate>
+        <form name="vm.resourceForm" validate>
           <div layout="" layout-sm="column">
             <md-input-container style="width:70%">
               <label>Website Name</label>
-              <input ng-model="vm.book.title" ng-value="vm.book.title">
+              <input ng-model="vm.resource.title" ng-value="vm.resource.title">
             </md-input-container>
 
             <md-input-container flex="">
               <label>URL</label>
-              <input ng-model="vm.book.url">
+              <input ng-model="vm.resource.url">
             </md-input-container>
 
-            <md-select ng-if="vm.newBook" name="resourceType" placeholder="Resource Type" ng-model="vm.book.type">
+            <md-select ng-if="vm.newResource" placeholder="Resource Type" ng-model="vm.resource.type">
               <md-option ng-repeat="type in vm.types" value="{{type}}">{{type}}</md-option>
             </md-select>
           </div>
 
           <div layout="row" layout-align="end center">
 
-            <div ng-if="!vm.newBook">
-              <md-button class="md-raised" ng-click="vm.deleteBook()">Delete</md-button>
+            <div ng-if="!vm.newResource">
+              <md-button class="md-raised" ng-click="vm.deleteResource()">Delete</md-button>
             </div>
 
-            <md-button class="md-raised" ng-click="vm.navigateTo(vm.book.url)">Open Website</md-button>
+            <md-button class="md-raised" ng-click="vm.navigateTo(vm.resource.url)">Open Website</md-button>
           </div>
 
         </form>
       </div>
       <div ng-switch-default>
-        <div ng-if="vm.newBook">
-          <md-select name="resourceType" placeholder="Resource Type" ng-model="vm.book.type">
+        <div ng-if="vm.newResource">
+          <md-select placeholder="Resource Type" ng-model="vm.resource.type">
             <md-option ng-repeat="type in vm.types" value="{{type}}">{{type}}</md-option>
           </md-select>
+
         </div>
       </div>
     </div>

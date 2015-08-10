@@ -8,7 +8,7 @@
   	'ngRoute', 'ngMaterial',
 
   	// app modules
-  	'gloo-app.books',// 'gloo-app.website', 'gloo-app.user',
+  	'gloo-app.resources',// 'gloo-app.website', 'gloo-app.user',
 
   	// thirdparty
     'ngMdIcons', 'LocalStorageModule'

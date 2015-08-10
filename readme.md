@@ -15,6 +15,7 @@
 * cd source/client/
 * bower install
 * python -m SimpleHTTPServer
+* open a browser and navigate to http://localhost:8000
 
 ## Time spent
 

@@ -17,7 +17,8 @@
 * python -m SimpleHTTPServer
 
 ## Time spent
-p spent a portion of the weekend hiking and preparing to drive across country.
+
+spent a portion of the weekend hiking and preparing to drive across country.
 
 * Friday - 4 hours
 * Sat - 1 hour
